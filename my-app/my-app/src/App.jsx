@@ -5,7 +5,7 @@ import { createClient } from "@supabase/supabase-js";
 import './App.css'
 
 //Se crea la instancia del clientede supabase
-const supabase = createClient("https://vxcwbmsawpbzqvosgcyj.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ4Y3dibXNhd3BienF2b3NnY3lqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU0ODI3MzcsImV4cCI6MjA1MTA1ODczN30.PAR7AInFkOEeKQagWdMUuVdfzhwkBoGVejfbB1cioh0");
+const supabase = createClient("", "");
 
 //Definición de componente App
 //countries es el estado que almacena una lista de países
