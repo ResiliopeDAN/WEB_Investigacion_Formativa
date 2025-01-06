@@ -1,0 +1,71 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+ul {
+  text-align: left; /* Asegura que todos los elementos de la lista hereden alineación a la izquierda */
+}
+
+
+li {
+  display: grid;
+  grid-template-columns: 100px auto auto; /* 200px para los nombres, auto para los botones */
+  gap: 10px; /* Espacio entre columnas */
+  justify-content: space-between; /* Distribuye el nombre y los botones */
+  align-items: center; /* Centra los botones verticalmente */
+  padding: 10px;
+  margin: -5px 0;
+  border-radius: 5px;
+}
+
+
+button {
+  padding: 5px 10px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
