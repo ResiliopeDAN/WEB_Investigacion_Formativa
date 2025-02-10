@@ -2,12 +2,13 @@
 import { useState } from "react";
 import supabase from "../api/supabaseClient.js";
 import supabaseClient from "../api/supabaseClient.js"; supabaseClient
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
+    const navigate = useNavigate(); // Hook para redirección a la página de ProfileForm para ingresar los datos del perfil de usuario creado
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -24,7 +25,12 @@ function Register() {
         }
 
         if (data) {
-            setMessage("User account created successfully!");
+            setMessage("¡Cuenta creada exitosamente! Redirigiendo...");
+            // Esperar 2 segundos y redirigir al formulario de perfil
+            setTimeout(() => {
+                navigate("/profile");
+            }, 2000);
+
         }
 
         setEmail("");
@@ -53,11 +59,11 @@ function Register() {
                   required
               />
 
-              <button type="submit">Create Account</button>
+              <button type="submit">Crear Cuenta</button>
 
           </form>
-          <span>Already have an account?</span>
-          <Link to="/login">Log in.</Link>
+          <span>¿Ya tienes una cuenta?</span>
+          <Link to="/login">Inicia sesión aquí.</Link>
       </div>
     );
 

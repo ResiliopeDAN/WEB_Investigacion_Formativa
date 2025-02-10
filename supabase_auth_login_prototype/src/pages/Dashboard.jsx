@@ -1,8 +1,6 @@
 import supabase from "../api/supabaseClient.js";
 import supabaseClient from "../api/supabaseClient.js"; supabaseClient
-import { useNavigate } from "react-router-dom"
-
-
+import { useNavigate, Link } from "react-router-dom"
 
 
 function Dashboard() {
@@ -16,6 +14,8 @@ function Dashboard() {
 
     return <div>
         <h1>Hello, you are logged in.</h1>
+        <Link to="/profile">Actualiza tus datos de Perfil</Link>
+        <br></br>
         <button onClick={singOut}>Sign out</button>
     </div>
 

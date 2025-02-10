@@ -7,6 +7,9 @@ import Register from './pages/Register.jsx'
 import Login from './pages/Login.jsx'
 import Dashboard from "./pages/Dashboard.jsx";
 import Wrapper from "./pages/Wrapper.jsx";
+import ProfileForm from "./pages/ProfileForm.jsx";
+import NotFound from "./pages/NotFound.jsx";
+
 
 function App() {
     return (
@@ -28,9 +31,18 @@ function App() {
                     <Wrapper>
                         <Dashboard/>
                     </Wrapper>
+                } />
 
+                {/* profile_form */}
+                <Route path="/profile" element={
+                    <Wrapper>
+                        <ProfileForm/>
+                    </Wrapper>
 
-                    } />
+                } />
+                {/* not found: Esta ruta es para cuando el usuario quiera redirigirse a una ruta desconocida*/}
+                <Route path="*" element={<NotFound />} />
+
             </Routes>
         </BrowserRouter>
     )
