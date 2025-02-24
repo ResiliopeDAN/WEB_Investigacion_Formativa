@@ -1,5 +1,5 @@
-import supabase from "../api/supabaseClient.js";
-import supabaseClient from "../api/supabaseClient.js"; supabaseClient
+import supabase from "../../api/supabaseClient.js";
+import supabaseClient from "../../api/supabaseClient.js"; supabaseClient
 import { useNavigate, Link } from "react-router-dom"
 
 

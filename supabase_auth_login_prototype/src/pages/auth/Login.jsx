@@ -1,38 +1,20 @@
 import { useState } from "react";
-import supabase from "../api/supabaseClient.js";
-import supabaseClient from "../api/supabaseClient.js"; supabaseClient
-import { Link, useNavigate } from "react-router-dom"
+//import supabase from "../../api/supabaseClient.js";
+//import supabaseClient from "../../api/supabaseClient.js"; supabaseClient
+import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 
 function Login() {
-
-    const navigate = useNavigate();
+    const { handleLogin, message } = useAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setMessage("");
-
-        const {data, error} = await supabase.auth.signInWithPassword({
-            email: email,
-            password: password,
-        });
-
-        if (error) {
-            setMessage(error.message);
-            setEmail("");
-            setPassword("");
-            return;
-        }
-
-        if (data) {
-            navigate("/dashboard");
-            return null;
-        }
-
-
+        await handleLogin(email, password);
+        setEmail("");
+        setPassword("");
     };
 
     return (
@@ -58,8 +40,8 @@ function Login() {
                 />
                 <button type="submit">Log in</button>
             </form>
-            <span>Don't have an account?</span>
-            <Link to="/register">Register</Link>
+            <span>¿No tienes cuenta aún?</span>
+            <Link to="/register">Registrate</Link>
         </div>
     );
 

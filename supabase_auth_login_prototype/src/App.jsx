@@ -2,13 +2,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //Importamos los componentes de la carpeta pages para cargarlos en el sistema
-import Home from './pages/Home';
-import Register from './pages/Register.jsx'
-import Login from './pages/Login.jsx'
-import Dashboard from "./pages/Dashboard.jsx";
-import Wrapper from "./pages/Wrapper.jsx";
-import ProfileForm from "./pages/ProfileForm.jsx";
-import NotFound from "./pages/NotFound.jsx";
+import Home from './pages/home/Home.jsx';
+import Register from './pages/auth/Register.jsx'
+import Login from './pages/auth/Login.jsx'
+import Dashboard from "./pages/dashboard/Dashboard.jsx";
+import Wrapper from "./pages/dashboard/Wrapper.jsx";
+import ProfileForm from "./pages/profile/ProfileForm.jsx";
+import NotFound from "./pages/errors/NotFound.jsx";
 
 
 function App() {

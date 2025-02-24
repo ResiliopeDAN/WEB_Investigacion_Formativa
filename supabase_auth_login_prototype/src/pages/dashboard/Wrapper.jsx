@@ -4,11 +4,13 @@
 
 
 import { useEffect, useState } from "react";
-import supabase from "../api/supabaseClient.js";
-import supabaseClient from "../api/supabaseClient.js";
+import supabase from "../../api/supabaseClient.js";
+import supabaseClient from "../../api/supabaseClient.js";
 import {Navigate} from "react-router"; supabaseClient
+import PropTypes from "prop-types";
 
-function Wrapper ({ children }) {
+
+function Wrapper({ children }) {
     const [authenticated, setAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -28,7 +30,7 @@ function Wrapper ({ children }) {
     },[]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div>Cargando...</div>;
     } else {
         if (authenticated) {
             return <>{children}</>
@@ -36,5 +38,13 @@ function Wrapper ({ children }) {
         return <Navigate to="/login" />;
     }
 }
+
+// Validación de props con PropTypes:
+// Se especifica que el prop 'children' debe ser un nodo de React y es obligatorio.
+// Esto ayuda a garantizar que el componente reciba el contenido correcto, evitando errores
+// y facilitando la documentación y mantenimiento del código.
+Wrapper.propTypes = {
+    children: PropTypes.node.isRequired,
+};
 
 export default Wrapper;
