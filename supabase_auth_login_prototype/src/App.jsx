@@ -9,6 +9,7 @@ import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import Wrapper from "./pages/dashboard/Wrapper.jsx";
 import ProfileForm from "./pages/profile/ProfileForm.jsx";
 import NotFound from "./pages/errors/NotFound.jsx";
+import VerifyEmail from "./pages/auth/VerifyEmail.jsx";
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
                 {/* login */}
                 <Route path="/login" element={<Login/>} />
 
+                {/* verificación de email */}
+                <Route path="/verify-email" element={<VerifyEmail />} />
 
                 {/* dashboard */}
                 <Route path="/dashboard" element={
