@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Input, defineStyle, FieldErrorText, Field } from "@chakra-ui/react";
+import {Box, Input, defineStyle, FieldErrorText, Field, InputGroup, Icon} from "@chakra-ui/react";
 import { Eye, EyeOff } from "lucide-react";
 
 export const AuthInput = ({
@@ -95,4 +95,34 @@ const floatingStyles = defineStyle({
     },
 })
 
-export default AuthInput;
+export const DashInput = ({
+                              register,
+                              name,
+                              errors,
+                              placeholder,
+                              label,
+                              icon,
+
+}) => {
+    return(
+        <Field.Root invalid={!!errors[name]}>
+            <Field.Label>
+                {label} <Field.RequiredIndicator/>
+            </Field.Label>
+            <InputGroup startElement={<Icon as={icon} variant="ghost"/>}>
+                <Input placeholder={placeholder} {...register(name)}/>
+            </InputGroup>
+            <FieldErrorText color="#FF6B6B">{errors[name]?.message}</FieldErrorText>
+        </Field.Root>
+
+    )
+};
+
+DashInput.propTypes = {
+    register: PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired,
+    errors: PropTypes.object.isRequired,
+    placeholder: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    icon: PropTypes.elementType,
+};

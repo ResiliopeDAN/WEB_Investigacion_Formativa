@@ -1,4 +1,4 @@
-import supabase from "../../api/supabaseClient.js";
+import supabase from "../../../api/supabaseClient.js";
 import { useNavigate, Link } from "react-router-dom"
 import {Box} from "@chakra-ui/react";
 

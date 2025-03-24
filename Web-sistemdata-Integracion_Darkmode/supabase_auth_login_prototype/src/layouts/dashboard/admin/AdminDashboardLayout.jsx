@@ -1,21 +1,21 @@
 import {Box, Flex, HStack} from "@chakra-ui/react";
 
 import {useState} from "react";
-import Sidebar from "@/components/dashboard/sidebar/Sidebar.jsx";
+import SidebarAd from "@/components/dashboard/admin/sidebar/SidebarAd.jsx";
 import {Outlet} from "react-router";
-import NavBar from "@/components/dashboard/navbar/NavBar.jsx";
+import NavBar from "@/components/dashboard/admin/navbar/NavBar.jsx";
+import Banner from "@/components/dashboard/admin/Banner.jsx";
 
-export const DashboardLayout = () => {
+export const AdminDashboardLayout = () => {
     const [collapse, setCollapse] = useState(false);
 
 
     return (
-<HStack w="full" h="100vh" bg="bg.muted" gap={0}>
+<Flex w="full" minH="100vh" bg="bg.muted" gap={0}>
     <Flex
         as="aside"
-        w="full"
-        h="full"
-        maxW={collapse ? {base: "250px", md: "263px", lg: "263px"} : {base: "30px", md: "100px", lg: "100px"}}
+        h="100vh"
+        w={collapse ? {base: "250px", md: "263px"} : {base: "30px", md: "100px"}}
         bg={{ base: "#00338C", _dark: "blue.950" }}
         alignItems="start"
         px={{base: collapse ?  4 : 6, md: 6}}
@@ -23,34 +23,32 @@ export const DashboardLayout = () => {
         flexDirection="column"
         justifyContent="space-between"
         transition="ease-in-out .2s"
-        position={{ base: collapse ? "absolute" : "relative", md: "relative" }} // Flotante en móvil
+        position={{ base: collapse ? "fixed" : "sticky", md: "sticky" }}
+        top="0"
         zIndex="overlay"
 
-
-
     >
-
-        <Sidebar collapse={collapse} setCollapse={setCollapse}/>
+        <SidebarAd collapse={collapse} setCollapse={setCollapse} />
     </Flex>
+
     <Flex
         flex="1"
         as="main"
+        minH="100vh"
         w="full"
-        h="full"
         px={{base: 4, md: 6}}
         alignItems="center"
         justifyContent="center"
         flexDirection="column"
-        position="relative"
         borderRadius="3xl"
     >
-
         <NavBar/>
-        <Box flex="1">
+        <Banner/>
+        <Box flex="1" >
             <Outlet/>
         </Box>
 
     </Flex>
-</HStack>
+</Flex>
     );
 };

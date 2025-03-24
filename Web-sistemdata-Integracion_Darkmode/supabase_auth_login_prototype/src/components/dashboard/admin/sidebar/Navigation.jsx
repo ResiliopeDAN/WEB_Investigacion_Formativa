@@ -72,7 +72,7 @@ NavItem.propTypes = {
 export const Navigation = ({ collapse }) => (
     <ListRoot w="full" variant="none">
         {dashboardLinks.map((item, index) => (
-            <ListItem key={index} >
+            <ListItem key={index}>
                 <NavItem item={item} collapse={collapse} />
             </ListItem>
         ))}

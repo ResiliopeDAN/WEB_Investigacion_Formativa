@@ -4,8 +4,8 @@
 
 
 import { useEffect, useState } from "react";
-import supabase from "../../api/supabaseClient.js";
-import supabaseClient from "../../api/supabaseClient.js";
+import supabase from "@/api/supabaseClient.js";
+import supabaseClient from "@/api/supabaseClient.js";
 import {Navigate} from "react-router"; supabaseClient
 import PropTypes from "prop-types";
 

@@ -1,14 +1,14 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 
-import {Navigation} from "@/components/dashboard/sidebar/Navigation.jsx";
+import {Navigation} from "@/components/dashboard/admin/sidebar/Navigation.jsx";
 import PropTypes from "prop-types";
-import {Logo} from "@/components/dashboard/sidebar/Logo.jsx";
-import {AvatarBox} from "@/components/dashboard/sidebar/AvatarBox.jsx";
+import {Logo} from "@/components/dashboard/admin/sidebar/Logo.jsx";
+import {AvatarBox} from "@/components/dashboard/admin/sidebar/AvatarBox.jsx";
 
-const Sidebar = ({ collapse, setCollapse }) => (
+const SidebarAd = ({ collapse, setCollapse }) => (
     <React.Fragment>
-        <Box w="full" h="full"  display="flex" flexDirection="column" gap={{base:"30px", md:"42px"}} >
+        <Box w="full" h="full"  display="flex" flexDirection="column" gap={{base:"30px", md:"42px"}}>
             <Logo collapse={collapse} setCollapse={setCollapse} />
             <Box flex="1">
                 <Navigation collapse={collapse}/>
@@ -18,8 +18,8 @@ const Sidebar = ({ collapse, setCollapse }) => (
 
     </React.Fragment>
 );
-Sidebar.propTypes = {
+SidebarAd.propTypes = {
     collapse: PropTypes.bool.isRequired,
     setCollapse: PropTypes.func.isRequired,
 };
-export default Sidebar;
+export default SidebarAd;
