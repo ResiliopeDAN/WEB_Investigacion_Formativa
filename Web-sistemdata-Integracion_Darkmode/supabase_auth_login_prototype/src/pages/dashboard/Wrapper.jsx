@@ -10,33 +10,67 @@ import {Navigate} from "react-router"; supabaseClient
 import PropTypes from "prop-types";
 
 
-function Wrapper({ children }) {
-    const [authenticated, setAuthenticated] = useState(false);
+function Wrapper({ children, rolPermitido }) {
     const [loading, setLoading] = useState(true);
+    const [autenticado, setAutenticado] = useState(false);
+    const [rolValido, setRolValido] = useState(false);
 
-    useEffect(()=>{
-        const  getSession = async () => {
+    useEffect(() => {
+        const verificarSesionYRol = async () => {
             const {
-                data: {session},
+                data: { session },
+                error,
             } = await supabase.auth.getSession();
-            // !!null -> false | Si la sesión no existe la autenticación se generará como falsa
-            // !!{} -> true | Si la sesión si existe la autenticación se generará como verdadera
-            setAuthenticated(!!session);
+
+            if (error || !session) {
+                setAutenticado(false);
+                setLoading(false);
+                return;
+            }
+
+            const userId = session.user.id;
+
+            // 1. Obtenemos el perfil del usuario
+            const { data: perfil, error: perfilError } = await supabase
+                .from("perfiles")
+                .select("role_id")
+                .eq("id", userId)
+                .single();
+
+            if (perfilError || !perfil) {
+                setAutenticado(false);
+                setLoading(false);
+                return;
+            }
+
+            // 2. Obtenemos el rol del usuario
+            const { data: rolData, error: rolError } = await supabase
+                .from("roles")
+                .select("nombre")
+                .eq("id", perfil.role_id)
+                .single();
+
+            if (rolError || !rolData) {
+                setAutenticado(false);
+                setLoading(false);
+                return;
+            }
+
+            setAutenticado(true);
+            setRolValido(rolData.nombre === rolPermitido);
             setLoading(false);
         };
 
-        getSession();
+        verificarSesionYRol();
+    }, [rolPermitido]);
 
-    },[]);
+    if (loading) return <div>Cargando...</div>;
 
-    if (loading) {
-        return <div>Cargando...</div>;
-    } else {
-        if (authenticated) {
-            return <>{children}</>
-        }
-        return <Navigate to="/login" />;
-    }
+    if (!autenticado) {return <Navigate to="/login" />;}
+
+    if (!rolValido) return null;
+
+    return <>{children}</>;
 }
 
 // Validación de props con PropTypes:
@@ -45,6 +79,7 @@ function Wrapper({ children }) {
 // y facilitando la documentación y mantenimiento del código.
 Wrapper.propTypes = {
     children: PropTypes.node.isRequired,
+    rolPermitido: PropTypes.string.isRequired,
 };
 
 export default Wrapper;

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser, loginUser } from "../services/authService";
+//import {updateProfile} from "@/services/profileService.js"; -> Esto se transfirió al UseProfile
+import supabase from "@/api/supabaseClient.js";
 
 export function useAuth() {
     const [message, setMessage] = useState("");
@@ -36,7 +38,45 @@ export function useAuth() {
         }
 
         if (success) {
-            navigate("/dashboard");
+            const {
+                data: { session },
+            } = await supabase.auth.getSession();
+
+            const userId = session.user.id;
+
+            // Paso 1: Obtener el perfil
+            const { data: perfil, error: perfilError } = await supabase
+                .from("perfiles")
+                .select("role_id")
+                .eq("id", userId)
+                .single();
+
+            if (perfilError || !perfil) {
+                setMessage("Error al obtener el perfil del usuario.");
+                return;
+            }
+
+            // Paso 2: Obtener el nombre del rol
+            const { data: rolData, error: rolError } = await supabase
+                .from("roles")
+                .select("nombre")
+                .eq("id", perfil.role_id)
+                .single();
+
+            if (rolError || !rolData) {
+                setMessage("Error al obtener el rol.");
+                return;
+            }
+
+            const rol = rolData.nombre;
+
+            if (rol === "Administrador") {
+                navigate("/admin/dashboard");
+            } else if (rol === "Registrado") {
+                navigate("/user/dashboard");
+            } else {
+                navigate("/sin-acceso");
+            }
         }
     };
 

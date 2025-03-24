@@ -1,5 +1,5 @@
 // import React from "react"; //No es necesario importarlo explícitamente cuando se utiliza un jsx
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //Importamos los componentes de la carpeta pages para cargarlos en el sistema
 
@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
     {path:"*", element: <NotFound/>},
     {
         path: "/admin",
-        element: <DashboardLayout/>,
+        element: <Wrapper rolPermitido="Administrador"><DashboardLayout/></Wrapper>,
         children: [{
             index: true,
             element: <Navigate to='/admin/dashboard'/>,
@@ -56,8 +56,18 @@ export const router = createBrowserRouter([
             },
             {
                 path: "profile",
-                element: <ProfileForm/>,
+                element:<Wrapper><ProfileForm/></Wrapper> ,
             }
             ]},
 
+    // Para cuando se añada lo de Aldo, deberá tener esa sintaxis para el manejo del Wrapper.
+    /*{
+        path: "/user",
+        element: <Wrapper rolPermitido="Registrado"><UserDashboardLayout /></Wrapper>,
+        children: [
+            { index: true, element: <Navigate to="/user/dashboard" /> },
+            { path: "dashboard", element: <h1>Dashboard del usuario</h1> },
+            { path: "profile", element: <ProfileForm /> },
+        ]
+    }*/
 ])
