@@ -101,7 +101,7 @@ const Login = () => {
                         type="submit"
                         w="full"
                         size="lg"
-                        bg="#27AE60"
+                        bg="#98cc3b"
                         isLoading={loading}
                         _hover={{ bg: "#2ECC71" }}
                         _active={{ bg: "#25A65B" }}

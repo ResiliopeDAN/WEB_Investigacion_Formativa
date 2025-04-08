@@ -10,7 +10,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {DashInput} from "@/components/shared/inputs/CustomInput.jsx";
-import {adminsSchema} from "@/lib/validators.js";
+import { sensorSchema} from "@/lib/validators.js";
 
 import {LiaAtSolid, LiaIdCardSolid, LiaUserEditSolid} from "react-icons/lia";
 import {IoDocumentTextOutline, IoSaveOutline} from "react-icons/io5";
@@ -19,7 +19,7 @@ import {IoDocumentTextOutline, IoSaveOutline} from "react-icons/io5";
 
 
 
-const AdminsForm = () => {
+const SensorForm = () => {
     const [loading, setLoading] = useState("");
     const [error, setError] = useState("");
 
@@ -29,7 +29,7 @@ const AdminsForm = () => {
         formState: { errors },
         control,
     } = useForm({
-        resolver: zodResolver(adminsSchema),
+        resolver: zodResolver(sensorSchema),
     });
 
 
@@ -54,24 +54,33 @@ const AdminsForm = () => {
             w="full"
             borderRadius="2xl" >
             <VStack gap={{base: 3, md:5}}>
-            <SimpleGrid w="full" columns={["2", null, "4"]}  columnGap={{base: "12px", md:"30px", lg:"70px"}} rowGap={{base: 3, md:5}}>
-                {/* Nombre */}
-                <DashInput register={register} name="nombre" errors={errors} placeholder="Nombre" label="Nombre" icon={LiaUserEditSolid }/>
-                <DashInput icon={LiaUserEditSolid } register={register} name="apellidos" errors={errors} placeholder="Apellidos" label="Apellidos"/>
-                <DashInput icon={LiaIdCardSolid } register={register} name="dni" errors={errors} placeholder="DNI" label="DNI"/>
-                <DashInput icon={LiaAtSolid } register={register} name="email" errors={errors} placeholder="Correo" label="Correo Electronico"/>
-                <DashInput
-                    register={register}
-                    name="rol"
-                    errors={errors}
-                    label="Rol"
-                    type="select"
-                    control={control}
-                    placeholder="Seleccionar rol"
-                    options={optionsForm}
-                />
+                <SimpleGrid w="full" columns={["2", null, "4"]}  columnGap={{base: "12px", md:"30px", lg:"70px"}} rowGap={{base: 3, md:5}}>
+                    {/* Nombre */}
+                    <DashInput register={register} name="serie" errors={errors} placeholder="Serie" label="Serie" />
+                    <DashInput register={register} name="marca" errors={errors} placeholder="Marca" label="Marca"/>
+                    <DashInput
+                        register={register}
+                        name="tipo"
+                        errors={errors}
+                        label="Tipo"
+                        type="select"
+                        control={control}
+                        placeholder="Seleccionar"
+                        options={tipoForm}
+                    />
+                    <DashInput
+                        register={register}
+                        name="estado"
+                        errors={errors}
+                        label="Estado"
+                        type="select"
+                        control={control}
+                        placeholder="Seleccionar"
+                        options={estadoForm}
+                    />
 
-            </SimpleGrid >
+
+                </SimpleGrid >
                 <Stack w="full" direction="row" justifyContent={{base:"center", md:"end"}}>
                     <Button
                         type="submit"
@@ -92,7 +101,7 @@ const AdminsForm = () => {
                         _active={{
                             colorPalette: "green",
                         }}
-                            isLoading={loading}
+                        isLoading={loading}
                     >
                         Guardar
                         <Icon as={IoSaveOutline} size="sm"/>
@@ -102,22 +111,31 @@ const AdminsForm = () => {
         </Flex>
     )
 }
-const optionsForm = createListCollection({
+const tipoForm = createListCollection({
     items: [
-        { label: "Admin", value: "admin" },
-        { label: "Editor", value: "editor" },
-        { label: "Lector", value: "lector" },
+        { label: "T_P_SIN_POLVO", value: "t_p_sin_polvo" },
+        { label: "T_M_SIN_POLVO", value: "t_m_sin_polvo" },
+        { label: "T_M_CON_POLVO", value: "t_m_con_polvo" },
+        { label: "T_P_CON_POLVO", value: "t_p_con_polvo" },
+        { label: "T_AMBIENTE", value: "t_ambiente" },
+    ],
+})
+const estadoForm = createListCollection({
+    items: [
+        { label: "Operativo", value: "operativo" },
+        { label: "Inactivo", value: "inactivo" },
+        { label: "Mantenimiento", value: "mantenimiento" },
     ],
 })
 
 
-function Administracion () {
+function SensoresAd () {
 
     return (
         <VStack w="full">
-            <AdminsForm/>
+            <SensorForm/>
         </VStack>
     )
 }
 
-export default Administracion
+export default SensoresAd

@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Box, Input, defineStyle, FieldErrorText, Field, InputGroup, Icon} from "@chakra-ui/react";
+import {Box, Input, defineStyle, FieldErrorText, Field, InputGroup, Icon, Portal, Select} from "@chakra-ui/react";
 import { Eye, EyeOff } from "lucide-react";
+import {Controller} from "react-hook-form";
 
 export const AuthInput = ({
                                 type,
@@ -102,19 +103,62 @@ export const DashInput = ({
                               placeholder,
                               label,
                               icon,
+                              type = "text",
+                              control,
+                              options,
 
 }) => {
+    if (type === "select"){
+        return (
+        <Field.Root invalid={!!errors[name]} width="full">
+            <Field.Label fontWeight="normal" textStyle="sm">{label}</Field.Label>
+            <Controller
+                control={control}
+                name={name}
+                render={({ field }) => (
+                    <Select.Root
+                        name={field.name}
+                        value={field.value}
+                        onValueChange={({ value }) => field.onChange(value)}
+                        onInteractOutside={() => field.onBlur()}
+                        collection={options}>
+                        <Select.HiddenSelect />
+                        <Select.Control >
+                            <Select.Trigger rounded="lg">
+                                <Select.ValueText placeholder={placeholder} />
+                            </Select.Trigger>
+                            <Select.IndicatorGroup>
+                                <Select.Indicator />
+                            </Select.IndicatorGroup>
+                        </Select.Control>
+                        <Portal>
+                            <Select.Positioner >
+                                <Select.Content rounded="lg">
+                                    {options.items.map((option) => (
+                                        <Select.Item item={option} key={option.value} rounded="lg">
+                                            {option.label}
+                                            <Select.ItemIndicator />
+                                        </Select.Item>
+                                    ))}
+                                </Select.Content>
+                            </Select.Positioner>
+                        </Portal>
+                    </Select.Root>
+                )}
+            />
+            <Field.ErrorText>{errors[name]?.message}</Field.ErrorText>
+        </Field.Root>)
+    }
     return(
-        <Field.Root invalid={!!errors[name]}>
-            <Field.Label>
+        <Field.Root invalid={!!errors[name]} w="full" >
+            <Field.Label fontWeight="normal" textStyle="sm" >
                 {label} <Field.RequiredIndicator/>
             </Field.Label>
-            <InputGroup startElement={<Icon as={icon} variant="ghost"/>}>
-                <Input placeholder={placeholder} {...register(name)}/>
+            <InputGroup startElement={icon ? <Icon as={icon} variant="ghost" size="sm" /> : null}>
+                <Input placeholder={placeholder} {...register(name)} rounded="lg"/>
             </InputGroup>
             <FieldErrorText color="#FF6B6B">{errors[name]?.message}</FieldErrorText>
         </Field.Root>
-
     )
 };
 
@@ -125,4 +169,9 @@ DashInput.propTypes = {
     placeholder: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     icon: PropTypes.elementType,
+    type: PropTypes.oneOf(["text", "select"]),
+    control: PropTypes.object,
+    options: PropTypes.object,
+
 };
+

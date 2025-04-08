@@ -1,4 +1,4 @@
-import {Box, Flex, HStack} from "@chakra-ui/react";
+import { Flex, VStack} from "@chakra-ui/react";
 
 import {useState} from "react";
 import SidebarAd from "@/components/dashboard/admin/sidebar/SidebarAd.jsx";
@@ -43,11 +43,10 @@ export const AdminDashboardLayout = () => {
         borderRadius="3xl"
     >
         <NavBar/>
-        <Banner/>
-        <Box flex="1" >
+        <VStack flex="1" w="full" gap={4}>
+            <Banner/>
             <Outlet/>
-        </Box>
-
+        </VStack>
     </Flex>
 </Flex>
     );

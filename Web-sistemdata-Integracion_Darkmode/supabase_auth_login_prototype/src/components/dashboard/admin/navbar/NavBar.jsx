@@ -65,9 +65,11 @@ const NavBar = () => {
             py={{base: "13.2px", md: "8px"}}
             minH={{base: "63.2px", md: "64px"}}
             w="full"
-            position="sticky"  // Mantiene el NavBar fijo cuando hay scroll
-            top="0"            // Lo posiciona en la parte superior
+            position="sticky"
+            top="0"
             bg="bg.muted"
+            zIndex="overlay"
+
         >
         <Flex
             bg="bg.panel"

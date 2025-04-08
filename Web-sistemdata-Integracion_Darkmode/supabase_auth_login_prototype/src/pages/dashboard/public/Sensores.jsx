@@ -10,7 +10,7 @@ const Sensores = () => {
 
     return (
         <Box   w="full">
-            <Box bg="black"  h="6vh">
+            <Box bg="black" >
         <Headerbar />
             </Box>
         </Box>

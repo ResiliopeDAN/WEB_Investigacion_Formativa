@@ -2,7 +2,7 @@ import {Box, Flex, Image} from "@chakra-ui/react";
 
 const Banner = () => {
     return (
-        <Flex flexDirection="column" w="full"  alignItems="center" overflow="hidden" borderRadius="2xl">
+        <Flex flexDirection="column" w="full"  alignItems="center" overflow="hidden" borderRadius="2xl" position="relative">
             <Image
                 w="full"
                 h={{base:"80px", md:"100px", lg:"120px"}}
